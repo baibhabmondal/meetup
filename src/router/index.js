@@ -13,7 +13,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
+      name: 'home',
       component: Home
     },
     {
@@ -22,25 +22,26 @@ export default new Router({
       component: profile
     },
     {
-      path: '/createMeetUps',
+      path: '/createmeetups',
       name: 'createMeetUps',
       component: createMeetUps
     },
     {
-      path: '/meetUps',
+      path: '/meetups',
       name: 'meetUps',
       component: meetUps
     },
     {
-      path: '/signIn',
+      path: '/signin',
       name: 'signIn',
       component: signIn
     },
     {
-      path: '/signUp',
+      path: '/signup',
       name: 'signUp',
       component: signUp
     }
+  ],
+  mode: 'history'
 
-  ]
 })

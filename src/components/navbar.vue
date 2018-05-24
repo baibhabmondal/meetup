@@ -2,7 +2,11 @@
     <div>
         <v-navigation-drawer temporary absolute class="hidden-sm-and-up" v-model="drawer">
             <v-list>
-                <v-list-tile v-for='item in menuItems' :key='item.title'>
+                <v-list-tile
+                  v-for='item in menuItems'
+                  :key='item.title'
+                  router
+                  :to='item.link'>
                     <v-list-tile-action>
                         <v-icon>
                             {{item.icon}}
@@ -17,11 +21,13 @@
         <v-toolbar app dark class="primary" absolute>
             <v-toolbar-side-icon class="hidden-sm-and-up" @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>
+            <router-link to="/" tag='span' style="cursor: pointer">
                 Developers Meet Up
+            </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-xs-only">
-                <v-btn flat v-for='item in menuItems' :key='item.title'>
+                <v-btn flat v-for='item in menuItems' :key='item.title' router :to='item.link'>
                     <v-icon left>{{ item.icon }}</v-icon>
                  {{ item.title }}
                 </v-btn>
@@ -39,23 +45,28 @@ export default {
       menuItems: [
         {
           title: 'View Meetups',
-          icon: 'supervisor_account'
+          icon: 'supervisor_account',
+          link: '/meetups'
         },
         {
           title: 'Organise Meetups',
-          icon: 'room'
+          icon: 'room',
+          link: '/createmeetups'
         },
         {
           title: 'Profile',
-          icon: 'person'
+          icon: 'person',
+          link: '/profile'
         },
         {
           title: 'Sign Up',
-          icon: 'face'
+          icon: 'face',
+          link: '/signup'
         },
         {
           title: 'Sign In',
-          icon: 'lock_open'
+          icon: 'lock_open',
+          link: '/signin'
         }
       ]
     }
