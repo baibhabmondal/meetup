@@ -1,13 +1,16 @@
 <template>
-  <v-app>
-    <v-toolbar>
-    </v-toolbar>
-  </v-app>
+  <div>
+    <navbar></navbar>
+  </div>
 </template>
 
 <script>
+import navbar from './navbar'
 export default {
-  name: 'HelloWorld'
+  name: 'HelloWorld',
+  components: {
+    'navbar': navbar
+  }
 }
 </script>
 
