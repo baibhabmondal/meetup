@@ -51,7 +51,7 @@ export default {
         {
           title: 'Organise Meetups',
           icon: 'room',
-          link: '/createmeetups'
+          link: '/meetups/new'
         },
         {
           title: 'Profile',
