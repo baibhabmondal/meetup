@@ -1,21 +1,5 @@
 <template>
-    <v-app>
-     <nav></nav>
-    </v-app>
+  <div>
+    <h1>This is the home page!!</h1>
+  </div>
 </template>
-
-<script>
-    import navbar from './components/navbar.vue';
-    export default {
-        name: 'home',
-        components: {
-            'nav': navbar
-        }
-    }
-
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
