@@ -7,7 +7,7 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 sm6 offset-sm3 text-xs-center>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form @submit.prevent='onCreateMeetup' ref="form" v-model="valid" lazy-validation>
             <v-text-field v-model="location"
              :rules="locationRules"
              :counter="20"
@@ -21,7 +21,7 @@
             </v-text-field>
             <img :src="imageURL" height="100px">
             <v-text-field name="description" :rules="desRules" :counter="100" label="Description" v-model="description" multi-line></v-text-field>
-           <v-btn class="primary" :disabled="!validation || !valid">
+           <v-btn class="primary" type="submit" :disabled="!validation || !valid">
                 Create Meetup
             </v-btn>
             <v-btn @click="clear">clear</v-btn>
@@ -58,6 +58,18 @@ export default {
   methods: {
     clear () {
       this.$refs.form.reset()
+    },
+    onCreateMeetup () {
+      const meetupData = {
+        location: this.location,
+        imageURL: this.imageURL,
+        description: this.description,
+        date: new Date(),
+        id: '4'
+      }
+      this.$store.dispatch('createMeetups', meetupData)
+      this.$refs.form.reset()
+      this.$router.push('/meetups')
     }
   }
 }
