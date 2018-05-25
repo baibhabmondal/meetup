@@ -4,11 +4,11 @@
         <v-flex xs12>
         <v-card>
             <v-card-title class='primary--text'>
-                <h3>Meet up in {{ place }}</h3>
+                <h3>{{ meetup.title }}</h3>
             </v-card-title>
-            <v-card-media :src="imageURL" height="300px"></v-card-media>
+            <v-card-media :src="meetup.imageURL" height="300px"></v-card-media>
             <v-card-text class="pb-0">
-                <h4>{{ date }}
+                <h4>{{ meetup.date }}
                 </h4>
                 <p>Lorem ipsum dolor sit amet consectetur
                     adipisicing elit. Error fugit, sunt perspiciatis
@@ -31,11 +31,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-      place: 'Chennai',
-      imageURL: 'https://www.jetairways.com/Explore/Chennai2-1024x400.jpg',
-      date: '13-12-2018'
+  props: ['id'],
+  computed: {
+    meetup () {
+      return this.$store.getters.loadedMeetup(this.id)
     }
   }
 }
