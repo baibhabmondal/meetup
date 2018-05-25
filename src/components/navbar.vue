@@ -5,7 +5,6 @@
                 <v-list-tile
                   v-for='item in menuItems'
                   :key='item.title'
-                  router
                   :to='item.link'>
                     <v-list-tile-action>
                         <v-icon>
@@ -19,7 +18,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-toolbar app dark class="primary" absolute>
-            <v-toolbar-side-icon class="hidden-sm-and-up" @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-toolbar-side-icon class="hidden-sm-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>
             <router-link to="/" tag='span' style="cursor: pointer">
                 Developers Meet Up
@@ -27,7 +26,7 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-xs-only">
-                <v-btn flat v-for='item in menuItems' :key='item.title' router :to='item.link'>
+                <v-btn flat v-for='item in menuItems' :key='item.title' :to='item.link'>
                     <v-icon left>{{ item.icon }}</v-icon>
                  {{ item.title }}
                 </v-btn>
