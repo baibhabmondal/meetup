@@ -11,7 +11,7 @@
                      <v-flex lg7>
                          <v-card-title>
                              <div>
-                            <h3> {{ meetup.title }} </h3>
+                            <h3>Meet up in {{ meetup.location }} </h3>
                              {{ meetup.date }}
                             </div>
                          </v-card-title>

@@ -17,7 +17,7 @@
         <v-carousel style='height: 70vh;'>
           <v-carousel-item v-for="meetup in meetups" :src="meetup.imageURL" :to='meetup.link' :key="meetup.id">
             <div class="title">
-              {{ meetup.title }}
+              Meetup in {{ meetup.location }}
             </div>
           </v-carousel-item>
         </v-carousel>
