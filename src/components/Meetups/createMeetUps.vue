@@ -24,7 +24,7 @@
            <v-btn class="primary" type="submit" :disabled="!validation || !valid">
                 Create Meetup
             </v-btn>
-            <v-btn @click="clear">clear</v-btn>
+            <v-btn @click="clear" :disabled="!validation || !valid">clear</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
