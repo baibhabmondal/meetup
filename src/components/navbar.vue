@@ -17,7 +17,7 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar app dark class="primary" absolute>
+        <v-toolbar app dark class="primary">
             <v-toolbar-side-icon class="hidden-sm-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>
             <router-link to="/" tag='span' style="cursor: pointer">

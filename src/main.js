@@ -4,6 +4,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
+import { store } from './store'
 
 Vue.config.productionTip = false
 
@@ -19,5 +20,6 @@ Vue.use(Vuetify, {
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

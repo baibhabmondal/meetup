@@ -14,7 +14,7 @@
        </v-flex>
      </v-layout>
      <v-layout row wrap class="mt-2">
-        <v-carousel>
+        <v-carousel style='height: 70vh;'>
           <v-carousel-item v-for="meetup in meetups" :src="meetup.imageURL" :to='meetup.link' :key="meetup.id">
             <div class="title">
               {{ meetup.title }}
