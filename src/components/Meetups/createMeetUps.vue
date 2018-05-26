@@ -21,7 +21,27 @@
             </v-text-field>
             <img :src="imageURL" height="100px">
             <v-text-field name="description" :rules="desRules" :counter="100" label="Description" v-model="description" multi-line></v-text-field>
-           <v-btn class="primary" type="submit" :disabled="!validation || !valid">
+            <v-layout row class="mb-2">
+              <v-flex xs12 sm6>
+               <h3 class="secondary--text">Choose a date for meetup</h3>
+              </v-flex>
+              </v-layout>
+            <v-layout row wrap class="mb-2">
+              <v-flex xs12 sm6>
+            <v-date-picker v-model="date" color="primary"></v-date-picker>
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap class="mb-3">
+            <v-flex xs12 sm6>
+              <h3 class="secondary--text">Choose a time for meetup</h3>
+            </v-flex>
+          </v-layout>
+            <v-layout row wrap class="mb-2">
+              <v-flex xs12 sm6>
+            <v-time-picker format="24hr" v-model="time" color="primary"></v-time-picker>
+            </v-flex>
+          </v-layout>
+            <v-btn class="primary" type="submit" :disabled="!validation || !valid">
                 Create Meetup
             </v-btn>
             <v-btn @click="clear" :disabled="!validation || !valid">clear</v-btn>
@@ -34,6 +54,8 @@
 <script>
 export default {
   data: () => ({
+    date: '',
+    time: '11:15',
     valid: true,
     location: '',
     description: '',
