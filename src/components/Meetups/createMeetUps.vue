@@ -42,6 +42,7 @@
               <h3 class="secondary--text">Choose a time for meetup</h3>
             </v-flex>
           </v-layout>
+          <p>{{ this.submittedDateAndTime }}</p>
             <v-layout row wrap class="mb-2">
               <v-flex xs12 sm6 offset-sm3>
             <v-time-picker format="24hr" v-model="time" color="primary"></v-time-picker>
@@ -66,7 +67,7 @@ export default {
       v => (v && v.length <= 50) || 'Title must be less than 50 characters'
     ],
     date: '',
-    time: '11:15',
+    time: '00:00',
     valid: true,
     location: '',
     description: '',
@@ -86,6 +87,15 @@ export default {
   computed: {
     validation () {
       return this.location !== '' && this.imageURL !== '' && this.description !== ''
+    },
+    submittedDateAndTime () {
+      let date = new Date(this.date)
+      const hours = this.time.match(/^(\d+)/)[1]
+      const minutes = this.time.match(/:(\d+)/)[1]
+      date.setHours(hours)
+      date.setMinutes(minutes)
+      console.log(date)
+      return date
     }
   },
   methods: {
@@ -98,8 +108,7 @@ export default {
         location: this.location,
         imageURL: this.imageURL,
         description: this.description,
-        date: this.date,
-        time: this.time,
+        date: this.submittedDateAndTime,
         id: '4'
       }
       this.$store.dispatch('createMeetups', meetupData)

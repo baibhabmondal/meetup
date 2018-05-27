@@ -10,7 +10,6 @@
             <v-card-text class="pb-0">
                 <h4>{{ meetup.date }}
                 </h4>
-                <h5>{{ meetup.time }}</h5>
                 <p>
                     {{ meetup.description }}
                 </p>
