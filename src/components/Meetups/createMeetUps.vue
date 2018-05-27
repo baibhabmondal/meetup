@@ -42,7 +42,6 @@
               <h3 class="secondary--text">Choose a time for meetup</h3>
             </v-flex>
           </v-layout>
-          <p>{{ this.submittedDateAndTime }}</p>
             <v-layout row wrap class="mb-2">
               <v-flex xs12 sm6 offset-sm3>
             <v-time-picker format="24hr" v-model="time" color="primary"></v-time-picker>
