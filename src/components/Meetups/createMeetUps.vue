@@ -8,7 +8,13 @@
     <v-layout row wrap>
       <v-flex xs12 sm6 offset-sm3 text-xs-center>
         <v-form @submit.prevent='onCreateMeetup' ref="form" v-model="valid" lazy-validation>
-            <v-text-field v-model="location"
+           <v-text-field v-model="title"
+             :rules="titleRules"
+             :counter="50"
+             label="Title"
+             required>
+            </v-text-field>
+          <v-text-field v-model="location"
              :rules="locationRules"
              :counter="20"
              label="Location"
@@ -22,29 +28,29 @@
             <img :src="imageURL" height="100px">
             <v-text-field name="description" :rules="desRules" :counter="100" label="Description" v-model="description" multi-line></v-text-field>
             <v-layout row class="mb-2">
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 offset-sm3>
                <h3 class="secondary--text">Choose a date for meetup</h3>
               </v-flex>
               </v-layout>
             <v-layout row wrap class="mb-2">
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 offset-sm3>
             <v-date-picker v-model="date" color="primary"></v-date-picker>
             </v-flex>
           </v-layout>
           <v-layout row wrap class="mb-3">
-            <v-flex xs12 sm6>
+            <v-flex xs12 sm6 offset-sm3>
               <h3 class="secondary--text">Choose a time for meetup</h3>
             </v-flex>
           </v-layout>
             <v-layout row wrap class="mb-2">
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 offset-sm3>
             <v-time-picker format="24hr" v-model="time" color="primary"></v-time-picker>
             </v-flex>
           </v-layout>
-            <v-btn class="primary" type="submit" :disabled="!validation || !valid">
-                Create Meetup
-            </v-btn>
-            <v-btn @click="clear" :disabled="!validation || !valid">clear</v-btn>
+          <v-btn @click="clear" :disabled="!validation || !valid">clear</v-btn>
+              <v-btn class="primary" type="submit" :disabled="!validation || !valid">
+                  Create Meetup
+              </v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -54,6 +60,11 @@
 <script>
 export default {
   data: () => ({
+    title: '',
+    titleRules: [
+      v => !!v || 'Title is required',
+      v => (v && v.length <= 50) || 'Title must be less than 50 characters'
+    ],
     date: '',
     time: '11:15',
     valid: true,
@@ -83,10 +94,12 @@ export default {
     },
     onCreateMeetup () {
       const meetupData = {
+        title: this.title,
         location: this.location,
         imageURL: this.imageURL,
         description: this.description,
-        date: new Date(),
+        date: this.date,
+        time: this.time,
         id: '4'
       }
       this.$store.dispatch('createMeetups', meetupData)

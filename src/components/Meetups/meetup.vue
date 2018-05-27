@@ -4,12 +4,13 @@
         <v-flex xs12>
         <v-card>
             <v-card-title class='primary--text'>
-                <h3>{{ meetup.location }}</h3>
+                <h3>{{ meetup.title }} in {{ meetup.location }}</h3>
             </v-card-title>
             <v-card-media :src="meetup.imageURL" height="300px"></v-card-media>
             <v-card-text class="pb-0">
                 <h4>{{ meetup.date }}
                 </h4>
+                <h5>{{ meetup.time }}</h5>
                 <p>
                     {{ meetup.description }}
                 </p>
