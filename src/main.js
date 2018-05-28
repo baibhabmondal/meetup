@@ -6,6 +6,7 @@ import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
 import { store } from './store'
 import dateFilter from './filters/date'
+import * as firebase from 'firebase'
 
 Vue.config.productionTip = false
 
@@ -24,5 +25,16 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created () {
+    var config = {
+      apiKey: 'AIzaSyCy7PDOjpnTzA9W4-8ygwm9cpIcs17ZalQ',
+      authDomain: 'meetup-2fe2a.firebaseapp.com',
+      databaseURL: 'https://meetup-2fe2a.firebaseio.com',
+      projectId: 'meetup-2fe2a',
+      storageBucket: 'meetup-2fe2a.appspot.com'
+    }
+    firebase.initializeApp(config)
+  }
+
 })
