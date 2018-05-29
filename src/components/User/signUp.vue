@@ -64,6 +64,15 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    submit () {
+      const user = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('onSignUp', user)
+    }
   }
 }
 </script>
