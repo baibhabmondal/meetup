@@ -73,6 +73,21 @@ export default {
       }
       this.$store.dispatch('onSignUp', user)
     }
+  },
+  computed: {
+    user () {
+      console.log('computed!')
+      console.log(this.$store.getters.users)
+      return this.$store.getters.users
+    }
+  },
+  watch: {
+    user (value) {
+      if (value !== null && value !== undefined) {
+        console.log('hurrrayyy!!')
+        this.$router.push('/')
+      }
+    }
   }
 }
 </script>

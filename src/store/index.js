@@ -35,10 +35,7 @@ export const store = new Vuex.Store({
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Error fugit, sunt perspiciatis culpa repudiandae molestias vel hic sed, saepe non repellat et explicabo dolor? Itaque nostrum eligendi nemo accusamus voluptatibus!'
       }
     ],
-    user: {
-      id: 2121,
-      registeredMeetups: ['Chennai']
-    }
+    user: null
   },
   mutations: {
     createMeetups (state, payload) {
@@ -67,9 +64,11 @@ export const store = new Vuex.Store({
         .then(
           user => {
             const newUser = {
-              id: user.uid,
+              id: user.user.uid,
               registeredMeetups: []
             }
+            console.log('Actions')
+            console.log(newUser)
             commit('createUser', newUser)
           }
         )
@@ -86,6 +85,9 @@ export const store = new Vuex.Store({
         return MeetUpA.date > MeetUpB.date
       })
     //   return state.loadedMeetups
+    },
+    users (state) {
+      return state.user
     },
 
     featuredMeetups (state, getters) {
