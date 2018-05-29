@@ -40,34 +40,48 @@ export default {
   name: 'navbar',
   data () {
     return {
-      drawer: false,
-      menuItems: [
-        {
-          title: 'View Meetups',
-          icon: 'supervisor_account',
-          link: '/meetups'
-        },
-        {
-          title: 'Organise Meetups',
-          icon: 'room',
-          link: '/meetups/new'
-        },
-        {
-          title: 'Profile',
-          icon: 'person',
-          link: '/profile'
-        },
-        {
-          title: 'Sign Up',
-          icon: 'face',
-          link: '/signup'
-        },
-        {
-          title: 'Sign In',
-          icon: 'lock_open',
-          link: '/signin'
-        }
-      ]
+      drawer: false
+    }
+  },
+  computed: {
+    menuItems () {
+      let menu = []
+      if (!this.userAuth) {
+        menu = [
+          {
+            title: 'Sign Up',
+            icon: 'face',
+            link: '/signup'
+          },
+          {
+            title: 'Sign In',
+            icon: 'lock_open',
+            link: '/signin'
+          }
+        ]
+      } else {
+        menu = [
+          {
+            title: 'View Meetups',
+            icon: 'supervisor_account',
+            link: '/meetups'
+          },
+          {
+            title: 'Organise Meetups',
+            icon: 'room',
+            link: '/meetups/new'
+          },
+          {
+            title: 'Profile',
+            icon: 'person',
+            link: '/profile'
+          }
+        ]
+      }
+      return menu
+    },
+    userAuth () {
+      return this.$store.getters.users
     }
   }
 }
