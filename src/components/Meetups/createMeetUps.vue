@@ -107,8 +107,7 @@ export default {
         location: this.location,
         imageURL: this.imageURL,
         description: this.description,
-        date: this.submittedDateAndTime,
-        id: '4'
+        date: this.submittedDateAndTime
       }
       this.$store.dispatch('createMeetups', meetupData)
       this.$refs.form.reset()
