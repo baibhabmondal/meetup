@@ -38,6 +38,7 @@ new Vue({
       storageBucket: 'meetup-2fe2a.appspot.com'
     }
     firebase.initializeApp(config)
+    this.$store.dispatch('setLoadedMeetups')
   }
 
 })

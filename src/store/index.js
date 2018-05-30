@@ -54,6 +54,9 @@ export const store = new Vuex.Store({
     },
     clearError (state) {
       state.error = null
+    },
+    setLoadedMeetups (state, payload) {
+      state.loadedMeetups = payload
     }
   },
   actions: {
@@ -131,6 +134,36 @@ export const store = new Vuex.Store({
     },
     clearErr ({commit}) {
       commit('clearError')
+    },
+    setLoadedMeetups ({commit}) {
+      commit('onLoading', true)
+      commit('clearError')
+      firebase.database().ref('meetups').once('value')
+        .then(
+          data => {
+            const meetups = []
+            const obj = data.val()
+            for (let key in obj) {
+              meetups.push({
+                id: key,
+                title: obj[key].title,
+                imageURL: obj[key].imageURL,
+                location: obj[key].location,
+                link: '/meetups/' + key,
+                date: obj[key].date,
+                description: obj[key].description
+              })
+            }
+            commit('setLoadedMeetups', meetups)
+            commit('onLoading', false)
+          }
+        )
+        .catch(
+          error => {
+            commit('onLoading', true)
+            commit('setError', error)
+          }
+        )
     }
   },
   getters: {
@@ -157,6 +190,9 @@ export const store = new Vuex.Store({
     },
     errors (state) {
       return state.error
+    },
+    loading (state) {
+      return state.loading
     }
   }
 })
