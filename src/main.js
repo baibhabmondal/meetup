@@ -30,8 +30,9 @@ new Vue({
   store,
   render: h => h(App),
   created () {
+    console.log(process.env.api_key)
     var config = {
-      apiKey: 'AIzaSyCy7PDOjpnTzA9W4-8ygwm9cpIcs17ZalQ',
+      apiKey: process.env.api_key,
       authDomain: 'meetup-2fe2a.firebaseapp.com',
       databaseURL: 'https://meetup-2fe2a.firebaseio.com',
       projectId: 'meetup-2fe2a',
