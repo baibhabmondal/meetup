@@ -1,5 +1,10 @@
 <template>
     <v-container>
+      <v-layout row v-if="error">
+        <v-flex xs12 sm6 offset-sm3>
+          <app-alert :text="error.message" @dismissed="onClose"></app-alert>
+        </v-flex>
+      </v-layout>
         <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
                 <v-card>
@@ -8,9 +13,21 @@
                             <v-layout row wrap>
                                 <v-flex xs12>
                                     <v-form @submit.prevent="submit">
-                                        <v-text-field v-model="email" label="EMAIL" id="email" type="email" :rules="emailRules" required>
+                                        <v-text-field
+                                          v-model="email"
+                                          label="EMAIL"
+                                          id="email"
+                                          type="email"
+                                          :rules="emailRules"
+                                          required>
                                         </v-text-field>
-                                        <v-text-field v-model="password" label="PASSWORD" id="password" type="password" :rules="passwordRules" required>
+                                        <v-text-field
+                                          v-model="password"
+                                          label="PASSWORD"
+                                          id="password"
+                                          type="password"
+                                          :rules="passwordRules"
+                                          required>
                                         </v-text-field>
                                         <v-btn type="submit" class="primary">Sign In</v-btn>
                                     </v-form>
@@ -47,11 +64,18 @@ export default {
         password: this.password
       }
       this.$store.dispatch('onSignIn', user)
+    },
+    onClose () {
+      console.log('dismissed')
+      this.$store.dispatch('clearErr')
     }
   },
   computed: {
     user () {
       return this.$store.getters.users
+    },
+    error () {
+      return this.$store.getters.errors
     }
   },
   watch: {
