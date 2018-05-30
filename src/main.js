@@ -18,8 +18,8 @@ Vue.component('app-alert', alertCmp)
 
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.red.darken2,
-    secondary: colors.grey.lighten1,
+    primary: colors.blueGrey.darken4,
+    secondary: colors.blueGrey.lighten1,
     accent: colors.red.accent2,
     error: colors.red.accent4
   }
@@ -31,7 +31,6 @@ new Vue({
   store,
   render: h => h(App),
   created () {
-    console.log(process.env.api_key)
     var config = {
       ...localfirebase
     }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app>
+    <v-app class=".background">
     <navbar></navbar>
     <div class="app">
   <router-view/>
@@ -21,8 +21,11 @@ export default {
 
 <style scoped>
 .app{
-  margin-top: 5%;
+  padding-top: 5%;
 }
+ .background {
+    background: #CFD8DC;
+ }
  .custom-loader {
     animation: loader 1s infinite;
     display: flex;

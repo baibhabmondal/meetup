@@ -5,7 +5,7 @@
         <h1 class="secondary--text">Create a meetup</h1>
       </v-flex>
     </v-layout>
-    <v-layout row wrap>
+    <v-layout row wrap  class="mb-5">
       <v-flex xs12 sm6 offset-sm3 text-xs-center>
         <v-form @submit.prevent='onCreateMeetup' ref="form" v-model="valid" lazy-validation>
            <v-text-field v-model="title"
@@ -20,11 +20,21 @@
              label="Location"
              required>
             </v-text-field>
-            <v-text-field v-model="imageURL"
-             :rules="imageRules"
-             label="Image URL"
-             required>
-            </v-text-field>
+            <h5>Upload an Image</h5>
+            <v-layout row wrap>
+            <v-flex xs12 sm6 offset-sm3>
+            <v-btn
+              raised
+              class="primary"
+              @click="onPickFile">
+              <v-icon left dark>cloud_upload</v-icon>Upload</v-btn>
+            <input type="file"
+              ref="fileInput"
+              style="display: none"
+              accept="image/*"
+              @change="onUpload">
+              </v-flex>
+              </v-layout>
             <img :src="imageURL" height="100px">
             <v-text-field name="description" :rules="desRules" :counter="100" label="Description" v-model="description" multi-line></v-text-field>
             <v-layout row class="mb-2">
@@ -42,7 +52,7 @@
               <h3 class="secondary--text">Choose a time for meetup</h3>
             </v-flex>
           </v-layout>
-            <v-layout row wrap class="mb-2">
+            <v-layout row wrap class="mb-4">
               <v-flex xs12 sm6 offset-sm3>
             <v-time-picker format="24hr" v-model="time" color="primary"></v-time-picker>
             </v-flex>
@@ -100,6 +110,22 @@ export default {
   methods: {
     clear () {
       this.$refs.form.reset()
+    },
+    onPickFile () {
+      this.$refs.fileInput.click()
+    },
+    onUpload (event) {
+      const files = event.target.files
+      const filename = files[0].name
+      console.log(filename)
+      if (filename.lastIndexOf('.') <= 0) {
+        alert('Please upload a valid image')
+      }
+      const fileReader = new FileReader()
+      fileReader.readAsDataURL(files[0])
+      fileReader.addEventListener('load', () => {
+        this.imageURL = fileReader.result
+      })
     },
     onCreateMeetup () {
       const meetupData = {
