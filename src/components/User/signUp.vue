@@ -37,7 +37,7 @@
                       :rules="confirmPasswordRules"
                       required>
                     </v-text-field>
-                    <v-btn type="submit" class="primary">Sign Up</v-btn>
+                    <v-btn type="submit" class="primary" :disabled="loading" :loading="loading">Sign Up</v-btn>
                   </v-form>
                 </v-flex>
               </v-layout>
@@ -92,6 +92,9 @@ export default {
     },
     error () {
       return this.$store.getters.errors
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   watch: {

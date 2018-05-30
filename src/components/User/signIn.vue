@@ -29,7 +29,13 @@
                                           :rules="passwordRules"
                                           required>
                                         </v-text-field>
-                                        <v-btn type="submit" class="primary">Sign In</v-btn>
+                                        <v-btn
+                                           type="submit"
+                                           class="primary"
+                                           :loading="loading"
+                                           :disabled="loading">
+                                           Sign In
+                                        </v-btn>
                                     </v-form>
                                 </v-flex>
                             </v-layout>
@@ -76,6 +82,9 @@ export default {
     },
     error () {
       return this.$store.getters.errors
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   watch: {

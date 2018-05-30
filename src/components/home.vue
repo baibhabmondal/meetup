@@ -15,7 +15,7 @@
      </v-layout>
      <v-layout row class="mt-5" v-if="loading">
        <v-flex xs12 class="text-xs-center">
-          <v-progress-circular size="70" width="7" indeterminate color="amber"></v-progress-circular>
+          <v-progress-circular :size="70" :width="7" indeterminate color="amber"></v-progress-circular>
        </v-flex>
      </v-layout>
      <v-layout row wrap class="mt-2" v-if="!loading">
