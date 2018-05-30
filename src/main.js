@@ -8,6 +8,7 @@ import { store } from './store'
 import dateFilter from './filters/date'
 import * as firebase from 'firebase'
 import alertCmp from './components/shared/alert.vue'
+import localfirebase from '../localfirebase'
 
 Vue.config.productionTip = false
 
@@ -32,11 +33,7 @@ new Vue({
   created () {
     console.log(process.env.api_key)
     var config = {
-      apiKey: process.env.api_key,
-      authDomain: 'meetup-2fe2a.firebaseapp.com',
-      databaseURL: 'https://meetup-2fe2a.firebaseio.com',
-      projectId: 'meetup-2fe2a',
-      storageBucket: 'meetup-2fe2a.appspot.com'
+      ...localfirebase
     }
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged((user) => {
