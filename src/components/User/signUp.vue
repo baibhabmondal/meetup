@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-layout row v-if="error">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert :text="error.message" @dismissed="onClose"></app-alert>
+      </v-flex>
+    </v-layout>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
@@ -48,6 +53,7 @@
 export default {
   data () {
     return {
+      msg: 'dummy text',
       email: '',
       password: '',
       confirmPassword: '',
@@ -72,6 +78,10 @@ export default {
         password: this.password
       }
       this.$store.dispatch('onSignUp', user)
+    },
+    onClose () {
+      this.$store.dispatch('clearErr')
+      console.log('dismissed fired!!!')
     }
   },
   computed: {
@@ -79,6 +89,9 @@ export default {
       console.log('computed!')
       console.log(this.$store.getters.users)
       return this.$store.getters.users
+    },
+    error () {
+      return this.$store.getters.errors
     }
   },
   watch: {

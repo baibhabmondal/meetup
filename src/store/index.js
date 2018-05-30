@@ -35,7 +35,9 @@ export const store = new Vuex.Store({
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Error fugit, sunt perspiciatis culpa repudiandae molestias vel hic sed, saepe non repellat et explicabo dolor? Itaque nostrum eligendi nemo accusamus voluptatibus!'
       }
     ],
-    user: null
+    user: null,
+    error: null,
+    loading: false
   },
   mutations: {
     createMeetups (state, payload) {
@@ -43,6 +45,15 @@ export const store = new Vuex.Store({
     },
     createUser (state, payload) {
       state.user = payload
+    },
+    onLoading (state, payload) {
+      state.loading = payload
+    },
+    setError (state, payload) {
+      state.error = payload
+    },
+    clearError (state) {
+      state.error = null
     }
   },
   actions: {
@@ -60,9 +71,12 @@ export const store = new Vuex.Store({
       commit('createMeetups', meetup)
     },
     onSignUp ({commit}, payload) {
+      commit('onLoading', true)
+      commit('clearError')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
+            commit('onLoading', false)
             const newUser = {
               id: user.user.uid,
               registeredMeetups: []
@@ -74,14 +88,19 @@ export const store = new Vuex.Store({
         )
         .catch(
           error => {
+            commit('setError', error)
+            commit('onLoading', false)
             console.log(error)
           }
         )
     },
     onSignIn ({commit}, payload) {
+      commit('onLoading', true)
+      commit('clearError')
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
+            commit('onLoading')
             const newUser = {
               id: user.user.uid,
               registeredMeetups: []
@@ -91,9 +110,14 @@ export const store = new Vuex.Store({
         )
         .catch(
           error => {
+            commit('onLoading', false)
+            commit('setError', error)
             console.log(error)
           }
         )
+    },
+    clearErr ({commit}) {
+      commit('clearError')
     }
   },
   getters: {
@@ -117,6 +141,9 @@ export const store = new Vuex.Store({
           return meetup.id === meetupId
         })
       }
+    },
+    errors (state) {
+      return state.error
     }
   }
 })

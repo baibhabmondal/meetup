@@ -7,10 +7,13 @@ import colors from 'vuetify/es5/util/colors'
 import { store } from './store'
 import dateFilter from './filters/date'
 import * as firebase from 'firebase'
+import alertCmp from './components/shared/alert.vue'
 
 Vue.config.productionTip = false
 
 Vue.filter('date', dateFilter)
+
+Vue.component('app-alert', alertCmp)
 
 Vue.use(Vuetify, {
   theme: {
