@@ -66,7 +66,7 @@ export const store = new Vuex.Store({
         location: payload.location,
         description: payload.description,
         date: payload.date.toISOString(),
-        userID: getters.users.id
+        creatorID: getters.users.id
       }
       let key
       let imageURL
