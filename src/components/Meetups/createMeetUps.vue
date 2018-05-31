@@ -78,6 +78,7 @@ export default {
     date: '',
     time: '00:00',
     valid: true,
+    image: null,
     location: '',
     description: '',
     desRules: [
@@ -126,12 +127,14 @@ export default {
       fileReader.addEventListener('load', () => {
         this.imageURL = fileReader.result
       })
+      this.image = files[0]
+      console.log(this.image)
     },
     onCreateMeetup () {
       const meetupData = {
         title: this.title,
         location: this.location,
-        imageURL: this.imageURL,
+        image: this.image,
         description: this.description,
         date: this.submittedDateAndTime
       }
