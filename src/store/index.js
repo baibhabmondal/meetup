@@ -184,7 +184,7 @@ export const store = new Vuex.Store({
                 link: '/meetups/' + key,
                 date: obj[key].date,
                 description: obj[key].description,
-                userID: obj[key].userID
+                creatorID: obj[key].creatorID
               })
             }
             commit('setLoadedMeetups', meetups)

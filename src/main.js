@@ -9,12 +9,14 @@ import dateFilter from './filters/date'
 import * as firebase from 'firebase'
 import alertCmp from './components/shared/alert.vue'
 import localfirebase from '../localfirebase'
+import editMeetups from './components/Meetups/editMeetupDialog/editMeetups.vue'
 
 Vue.config.productionTip = false
 
 Vue.filter('date', dateFilter)
 
 Vue.component('app-alert', alertCmp)
+Vue.component('edit-meetups', editMeetups)
 
 Vue.use(Vuetify, {
   theme: {
