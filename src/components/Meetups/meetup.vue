@@ -19,6 +19,14 @@
             <v-card-text class="pb-0">
                 <h4>{{ meetup.date | date }}
                 </h4>
+                <div v-if="creatorAuth">
+                  <template>
+                    <edit-date :meetup="meetup"></edit-date>
+                  </template>
+                  <template>
+                    <edit-time :meetup="meetup"></edit-time>
+                  </template>
+                </div>
                 <p>
                     {{ meetup.description }}
                 </p>

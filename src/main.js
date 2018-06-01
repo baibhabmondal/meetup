@@ -10,13 +10,16 @@ import * as firebase from 'firebase'
 import alertCmp from './components/shared/alert.vue'
 import localfirebase from '../localfirebase'
 import editMeetups from './components/Meetups/editMeetupDialog/editMeetups.vue'
-
+import editMeetupDate from './components/Meetups/editMeetupDialog/editMeetupDate.vue'
+import editMeetupTime from './components/Meetups/editMeetupDialog/editTime.vue'
 Vue.config.productionTip = false
 
 Vue.filter('date', dateFilter)
 
 Vue.component('app-alert', alertCmp)
 Vue.component('edit-meetups', editMeetups)
+Vue.component('edit-date', editMeetupDate)
+Vue.component('edit-time', editMeetupTime)
 
 Vue.use(Vuetify, {
   theme: {
