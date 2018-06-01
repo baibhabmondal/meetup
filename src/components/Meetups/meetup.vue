@@ -1,6 +1,11 @@
 <template>
 <v-container>
-    <v-layout row wrap>
+    <v-layout row class="mt-5" v-if="loading">
+        <v-flex xs12 class="text-xs-center">
+            <v-progress-circular :size="70" :width="7" indeterminate color="amber"></v-progress-circular>
+        </v-flex>
+    </v-layout>
+    <v-layout row wrap v-if="!loading">
         <v-flex xs12>
         <v-card>
             <v-card-title class='primary--text'>
@@ -34,6 +39,9 @@
 export default {
   props: ['id'],
   computed: {
+    loading () {
+      return this.$store.getters.loading
+    },
     meetup () {
       return this.$store.getters.loadedMeetup(this.id)
     },
