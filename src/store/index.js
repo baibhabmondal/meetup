@@ -43,6 +43,20 @@ export const store = new Vuex.Store({
     createMeetups (state, payload) {
       state.loadedMeetups.push(payload)
     },
+    editedMeetup (state, payload) {
+      const meetup = state.loadedMeetups.find(meetup => {
+        return meetup.id === payload.id
+      })
+      if (payload.title) {
+        meetup.title = payload.title
+      }
+      if (payload.description) {
+        meetup.description = payload.description
+      }
+      if (payload.date) {
+        meetup.date = payload.date
+      }
+    },
     createUser (state, payload) {
       state.user = payload
     },
@@ -107,6 +121,28 @@ export const store = new Vuex.Store({
             console.log(error)
           }
         )
+    },
+    editedMeetup ({commit}, payload) {
+      commit('onLoading', true)
+      const editedObj = {}
+      if (payload.title) {
+        editedObj.title = payload.title
+      }
+      if (payload.description) {
+        editedObj.description = payload.description
+      }
+      if (payload.date) {
+        editedObj.date = payload.date
+      }
+      firebase.database().ref('meetups').child(payload.id).update(editedObj)
+        .then(data => {
+          commit('onLoading', false)
+          commit('editedMeetup', payload)
+        })
+        .catch(error => {
+          commit('onLoading', false)
+          console.log(error)
+        })
     },
     onSignUp ({commit}, payload) {
       commit('onLoading', true)
