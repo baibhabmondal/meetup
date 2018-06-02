@@ -33,7 +33,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <register :meetupID="meetup.id"></register>
+                <register v-if="!userIsCreator" :meetupID="meetup.id"></register>
             </v-card-actions>
         </v-card>
     </v-flex>
@@ -60,6 +60,9 @@ export default {
         return false
       }
       return this.meetup.creatorID === this.user.id
+    },
+    userIsCreator () {
+      return this.$store.getters.loadedMeetup(this.id).creatorID === this.$store.getters.users.id
     }
   }
 }

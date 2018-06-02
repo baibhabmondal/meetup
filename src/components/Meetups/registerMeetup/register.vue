@@ -49,13 +49,24 @@ export default {
   },
   computed: {
     registered () {
-      return this.$store.getters.users.registeredMeetups.findIndex((meetupID) => {
+      console.log('props:' + this.meetupID)
+      console.log(this.$store.getters.users.registeredMeetups)
+      var x = this.$store.getters.users.registeredMeetups.findIndex((meetupID) => {
         return this.meetupID === meetupID
-      }) >= 0
+      })
+      console.log(x)
+      if (x >= 0) {
+        return true
+      }
     }
   },
   methods: {
     onSave () {
+      if (!this.registered) {
+        this.$store.dispatch('onRegister', this.meetupID)
+      } else {
+        this.$store.dispatch('onUnregister', this.meetupID)
+      }
     }
   }
 }

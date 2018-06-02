@@ -57,6 +57,24 @@ export const store = new Vuex.Store({
         meetup.date = payload.date
       }
     },
+    onRegister (state, payload) {
+      const id = state.user.id
+      if (state.user.registeredMeetups.findIndex(meetup => {
+        return meetup.id === payload.id
+      }) >= 0) {
+        return
+      }
+      state.user.registeredMeetups.push(payload.id)
+      state.user.fbkey[id] = payload.fbkey
+    },
+    onUnregister (state, payload) {
+      const user = state.user
+      const registeredMeetups = state.user.registeredMeetups
+      registeredMeetups.slice(registeredMeetups.findIndex(meetupid => {
+        return meetupid === payload
+      }), 1)
+      Reflect.deleteProperty(user.fbkey, payload)
+    },
     createUser (state, payload) {
       state.user = payload
     },
@@ -74,6 +92,37 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    onRegister ({commit, getters}, payload) {
+      commit('onLoading', true)
+      const user = getters.users
+      firebase.database().ref('users/' + user.id).child('registration').push(payload)
+        .then(data => {
+          commit('onLoading', false)
+          const obj = {id: payload, fbkey: data.key}
+          commit('onRegister', obj)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('onLoading', false)
+        })
+    },
+    onUnregister ({commit, getters}, payload) {
+      commit('onLoading', true)
+      const user = getters.users
+      if (!user.fbkey) {
+        return
+      }
+      const fbkey = user.fbkey[payload]
+      firebase.database().ref('users/' + user.id + '/registration').child(fbkey).remove()
+        .then(() => {
+          commit('onLoading', false)
+          commit('onUnregister', payload)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('onLoading', false)
+        })
+    },
     createMeetups ({commit, getters}, payload) {
       const meetup = {
         title: payload.title,
@@ -153,7 +202,8 @@ export const store = new Vuex.Store({
             commit('onLoading', false)
             const newUser = {
               id: user.user.uid,
-              registeredMeetups: []
+              registeredMeetups: [],
+              fbkey: []
             }
             console.log('Actions')
             console.log(newUser)
@@ -184,10 +234,11 @@ export const store = new Vuex.Store({
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
-            commit('onLoading')
+            commit('onLoading', false)
             const newUser = {
               id: user.user.uid,
-              registeredMeetups: []
+              registeredMeetups: [],
+              fbkey: []
             }
             commit('createUser', newUser)
           }
